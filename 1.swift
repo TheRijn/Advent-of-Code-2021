@@ -25,4 +25,4 @@ for i in 1..<depths.count - 2 {
     }
     prev = new
 }
-print("b:", total)
+print("b:", total0
