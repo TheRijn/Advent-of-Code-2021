@@ -7,5 +7,9 @@
 
 import Foundation
 
-print("Hello, World!")
+let fileContent = try! String(contentsOfFile: CommandLine.arguments[1])
+
+for line in fileContent.trimmingCharacters(in: .newlines).components(separatedBy: .newlines) {
+    
+}
 
