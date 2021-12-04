@@ -40,20 +40,22 @@ def part_two(boards: np.ndarray, number):
 
 
 if __name__ == "__main__":
+    import sys
+
     numbers = [int(x) for x in input().split(",")]
 
     input()  # Skip blank line
 
     boards = []
 
-    try:
-        while True:
-            current_board = []
-            while (line := input().strip()) != "":
-                current_board.append([int(x) for x in line.split()])
+    current_board = []
+
+    for line in sys.stdin:
+        if line != "\n":
+            current_board.append([int(x) for x in line.split()])
+        else:
             boards.append(current_board)
-    except EOFError:
-        boards.append(current_board)
+            current_board = []
 
     boards = np.array(boards)
 
