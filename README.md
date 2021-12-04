@@ -6,11 +6,11 @@ Expect hacky code that is not representative of my average code quality.
 Python solutions take input from `stdin`, so run like this:
 
 ```shell
-cat input1.in | python3 3.py
+$ cat input1.in | python3 3.py
 ```
 
 Swift solutions take the filename as the first argument.
 
 ```shell
-swift ./AoC1/main.swift input1.in
+$ swift ./AoC1/main.swift input1.in
 ```
