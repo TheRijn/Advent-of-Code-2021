@@ -1,6 +1,7 @@
+from __future__ import annotations
 import sys
 
-bitstrings = []
+bitstrings: list[str] = []
 
 for x in sys.stdin:
     bitstrings.append(x.rstrip())
