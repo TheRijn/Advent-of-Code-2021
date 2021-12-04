@@ -1,42 +1,45 @@
 import numpy as np
 
 
-def has_bingo(board: np.ndarray) -> bool:
-    for row in board:
-        if np.all(row == -1):
+def bingo_in_lines(lines: np.ndarray) -> bool:
+    for line in lines:
+        if np.all(line == -1):
             return True
-
-    for col in board.T:
-        if np.all(col == -1):
-            return True
-
     return False
 
 
-def part_one(boards, number):
+def bingo_in_board(board: np.ndarray) -> bool:
+    return bingo_in_lines(board) or bingo_in_lines(board.T)
+
+
+def board_score(board: np.ndarray, number: int) -> int:
+    return board[board != -1].sum() * number
+
+
+def part_one(boards: np.ndarray, numbers: list[int]):
     for number in numbers:
         boards[boards == number] = -1
 
         for board in boards:
-            if has_bingo(board):
-                return board[board != -1].sum() * number
+            if bingo_in_board(board):
+                return board_score(board, number)
 
 
-def part_two(boards: np.ndarray, number):
+def part_two(boards: np.ndarray, numbers: list[int]):
     for number in numbers:
         boards[boards == number] = -1
 
         done_boards = []
 
         for b, board in enumerate(boards):
-            if has_bingo(board):
+            if bingo_in_board(board):
                 done_boards.append(b)
 
         if len(boards) == 1 and len(done_boards) == 1:
             board = boards[0]
-            return board[board != -1].sum() * number
+            return board_score(board, number)
 
-        boards = np.delete(boards, done_boards, 0)
+        boards = np.delete(boards, done_boards, axis=0)
 
 
 if __name__ == "__main__":
@@ -57,8 +60,8 @@ if __name__ == "__main__":
             boards.append(current_board)
             current_board = []
 
-    boards = np.array(boards)
+    np_boards = np.array(boards)
 
-    print("Winning board:", part_one(boards.copy(), numbers))
+    print("Winning board:", part_one(np_boards.copy(), numbers))
 
-    print("Losing board :", part_two(boards.copy(), numbers))
+    print("Losing board :", part_two(np_boards.copy(), numbers))
