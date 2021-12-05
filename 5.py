@@ -2,9 +2,12 @@ import numpy as np
 
 
 def get_points(coord, part_one=False):
-    if part_one:
-        if abs(coord[0, 0] - coord[1, 0]) > 0 and abs(coord[0, 1] - coord[1, 1]) > 0:
-            return []
+    if (
+        part_one
+        and abs(coord[0, 0] - coord[1, 0]) > 0
+        and abs(coord[0, 1] - coord[1, 1]) > 0
+    ):
+        return []
 
     size = max([abs(coord[0, 0] - coord[1, 0]), abs(coord[0, 1] - coord[1, 1])]) + 1
 
@@ -19,9 +22,10 @@ def fill_grid(coords: np.array, max_x: int, max_y: int, part_one=False):
 
     for coord in coords:
         points = get_points(coord, part_one=part_one)
+
         for point in points:
             grid[tuple(point)] += 1
-    # print(grid.T)
+
     return len(grid[grid >= 2])
 
 
