@@ -1,8 +1,5 @@
-import numpy as np
-from pprint import pprint
 import sys
-
-from numpy.lib.function_base import delete
+import numpy as np
 
 EASY_LENGTHS = np.array([2, 4, 3, 7])
 
