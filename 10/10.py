@@ -1,6 +1,3 @@
-from typing import Optional
-
-
 class InvalidChar(Exception):
     pass
 
@@ -55,20 +52,21 @@ def part_two(lines: list[str]) -> int:
         score = 0
 
         try:
-            stack: list[Optional[str]] = [None]
+            stack: list[str] = []
 
             for char in list(line):
                 if char in CLOSING_FOR_OPEN.values():  # Open backets
                     stack.append(char)
                 elif char in CLOSING_FOR_OPEN:  # Close brackets
                     top = stack.pop()
+
                     if top != CLOSING_FOR_OPEN[char]:
                         # Ignore invalid lines
                         raise InvalidChar
 
             # Close unclosed pairs
-            while top := stack.pop():
-                score = score * 5 + SCORE_TWO[top]
+            while stack:
+                score = score * 5 + SCORE_TWO[stack.pop()]
 
             scores.append(score)
 
