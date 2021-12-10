@@ -1,16 +1,14 @@
-import sys
+from typing import Optional
 
 
 class InvalidChar(Exception):
     pass
 
 
-PAIRS = {
-    ")": "(",
-    "]": "[",
-    "}": "{",
-    ">": "<",
-}
+OPEN = ["(", "[", "{", "<"]
+CLOSE = [")", "]", "}", ">"]
+
+CLOSING_FOR_OPEN = dict(zip(CLOSE, OPEN))
 
 SCORE_ONE = {
     ")": 3,
@@ -29,47 +27,51 @@ SCORE_TWO = {
 
 def part_one(lines: list[str]) -> int:
     score = 0
+
     for line in lines:
         try:
             stack = []
-            for char in list(line):
-                # Open backets
-                if char in PAIRS.values():
-                    stack.append(char)
 
-                # Close brackets
-                elif char in PAIRS:
+            for char in list(line):
+                if char in CLOSING_FOR_OPEN.values():  # Open backets
+                    stack.append(char)
+                elif char in CLOSING_FOR_OPEN:  # Close brackets
                     top = stack.pop()
-                    if top != PAIRS[char]:
+
+                    if top != CLOSING_FOR_OPEN[char]:
                         score += SCORE_ONE[char]
                         raise InvalidChar
+
         except InvalidChar:
             pass
+
     return score
 
 
 def part_two(lines: list[str]) -> int:
     scores = []
+
     for line in lines:
         score = 0
-        try:
-            stack = [None]
-            for char in list(line):
-                # Open backets
-                if char in PAIRS.values():
-                    stack.append(char)
 
-                # Close brackets
-                elif char in PAIRS:
+        try:
+            stack: list[Optional[str]] = [None]
+
+            for char in list(line):
+                if char in CLOSING_FOR_OPEN.values():  # Open backets
+                    stack.append(char)
+                elif char in CLOSING_FOR_OPEN:  # Close brackets
                     top = stack.pop()
-                    if top != PAIRS[char]:
+                    if top != CLOSING_FOR_OPEN[char]:
+                        # Ignore invalid lines
                         raise InvalidChar
 
-            # Check not closed brackets
+            # Close unclosed pairs
             while top := stack.pop():
                 score = score * 5 + SCORE_TWO[top]
 
             scores.append(score)
+
         except InvalidChar:
             pass
 
@@ -79,6 +81,8 @@ def part_two(lines: list[str]) -> int:
 
 
 if __name__ == "__main__":
+    import sys
+
     lines = sys.stdin.readlines()
 
     print("Part one:", part_one(lines))
