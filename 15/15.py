@@ -1,10 +1,10 @@
 import numpy as np
 from heapq import heappush, heappop
-import sys
 
 
 def neighbors(pos: tuple[int, int], shape):
     n = []
+
     if pos[0] > 0:
         n.append((pos[0] - 1, pos[1]))
     if pos[1] > 0:
@@ -19,22 +19,18 @@ def neighbors(pos: tuple[int, int], shape):
 
 def dijkstra(grid):
     dist = np.full_like(grid, np.iinfo(np.int64).max)
-
-    q = []
-
-    heappush(q, (0, (0, 0)))
+    q = [(0, (0, 0))]
     dist[0, 0] = 0
 
     while q:
-        dist_u, u = heappop(q)
-
-        if dist[u] < dist_u:
-            continue
+        _, u = heappop(q)
 
         for neighbour in neighbors(u, grid.shape):
-            if dist[neighbour] > dist[u] + grid[neighbour]:
-                dist[neighbour] = dist[u] + grid[neighbour]
-                heappush(q, (dist[neighbour], neighbour))
+            new = dist[u] + grid[neighbour]
+
+            if dist[neighbour] > new:
+                dist[neighbour] = new
+                heappush(q, (new, neighbour))
 
     return dist[(grid.shape[0] - 1, grid.shape[1] - 1)]
 
@@ -59,5 +55,6 @@ if __name__ == "__main__":
     grid = np.array(
         [[int(x) for x in list(line.strip())] for line in sys.stdin.readlines()]
     )
+
     print("Part one:", dijkstra(grid))
     print("Part two:", dijkstra(multiply_grid(grid)))
