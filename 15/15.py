@@ -28,7 +28,7 @@ def dijkstra(grid):
         for neighbour in neighbors(u, grid.shape):
             new = dist[u] + grid[neighbour]
 
-            if dist[neighbour] > new:
+            if new < dist[neighbour]:
                 dist[neighbour] = new
                 heappush(q, (new, neighbour))
 
