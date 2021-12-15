@@ -30,9 +30,9 @@ def part_one(lines: list[str]) -> int:
             stack = []
 
             for char in list(line):
-                if char in CLOSING_FOR_OPEN.values():  # Open backets
+                if char in OPEN:  # Open backets
                     stack.append(char)
-                elif char in CLOSING_FOR_OPEN:  # Close brackets
+                elif char in CLOSE:  # Close brackets
                     top = stack.pop()
 
                     if top != CLOSING_FOR_OPEN[char]:
