@@ -1,8 +1,6 @@
 from collections import defaultdict
 import sys
 
-from pprint import pprint
-
 
 def part_x(template: str, pairs: list[tuple[str, str, str]], iterations=10) -> int:
     duos = defaultdict(int)
@@ -20,7 +18,6 @@ def part_x(template: str, pairs: list[tuple[str, str, str]], iterations=10) -> i
 
         duos = next_duos
 
-    print(duos)
     letter_counts = count_occurrences(duos, template)
     return max(letter_counts.values()) - min(letter_counts.values())
 
