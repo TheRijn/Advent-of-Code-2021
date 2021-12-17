@@ -32,7 +32,7 @@ def pos_in_target(x: int, y: int, target: target_t) -> bool:
     return True
 
 
-def brute_force(target: target_t):
+def brute_force(target: target_t) -> tuple[int, int]:
     best_y = 0
 
     values_found = 0
