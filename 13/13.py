@@ -8,11 +8,11 @@ np.set_printoptions(threshold=sys.maxsize, linewidth=1000)
 def print_sheet(grid):
     print(
         str(grid)
-        .replace("False", ".")
-        .replace("True", "#")
         .replace("[", "")
         .replace("]", "")
         .replace(" ", "")
+        .replace("True", "▓")
+        .replace("False", "░")
     )
 
 

@@ -13,10 +13,10 @@ var horizontalPosition = 0
 let fileContent = try! String(contentsOfFile: CommandLine.arguments[1])
 for line in fileContent.trimmingCharacters(in: .newlines).components(separatedBy: .newlines) {
     let parts = line.components(separatedBy: " ")
-    
+
     let direction = parts[0]
     let number = Int(parts[1])!
-    
+
     switch direction {
     case "forward":
         horizontalPosition += number
@@ -37,10 +37,10 @@ var horizontalPositionB = 0
 
 for line in fileContent.trimmingCharacters(in: .newlines).components(separatedBy: .newlines) {
     let parts = line.components(separatedBy: .whitespaces)
-    
+
     let direction = parts[0]
     let number = Int(parts[1])!
-    
+
     switch direction {
     case "up":
         aim -= number
